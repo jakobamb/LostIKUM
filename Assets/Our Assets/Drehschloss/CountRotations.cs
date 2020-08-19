@@ -3,76 +3,161 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CountRotations : MonoBehaviour
-{
+{   
     public List<int> CORRECT_COMBI = new List<int>() { 1, 1, -1, 1, 1, 1 };
-    //public bool _doorOpen = false;
+    private bool _doorOpen = false;
 
-    private bool clockWise;
-    public float firstRotationValue = 0;
-    private float currentRotationValue;   
-    private static GameObject combinationObject;
-    private CurrentCombination combination;
-    //private List <int> _rotationCombi = new List<int>(); -> Falls die Liste intern gespeichert werden soll
+    private bool clockWise; //true: im Uhrzeigersinn, false: gegen Uhrzeigersinn
+    private float currentRotationValue;
+    private CurrentCombination combination = new CurrentCombination();
+    
+
+    private bool _isSelected = false;
+    private float _cumulatedRotation = 0.0f; 
+
+    private float _lastFrameEulerRotation;
+    
+
+
+    //Wird beim Starten des Spiels einmalig initialisiert
+    void Start()
+    {
+        _lastFrameEulerRotation = 90.0f;
+        //GetComponent.hingeJoint..as.
+        //rigidbody auf Sleep für 1 Sekunde
+         
+    }
+
+
 
     //Wird beim Loslassen des Zylinders aufgerufen
     public void OnRelease()
     {
-        currentRotationValue = transform.localEulerAngles.z; //bestimmt aktuelle Rotation
-        clockWise = GetRotateDirection(0.0f, currentRotationValue); //bestimmt, ob die Rotation im oder gegen den Uhrzeigersinn war
+        _isSelected = false;
     }
 
-    // Wird beim Starten des Spiels einmalig initialisiert
-    void Start()
+  //Wird beim Anfassen des Zylinders aufgerufen
+    public void OnSelect()
     {
-        combinationObject = GameObject.FindWithTag("CurrentCombination"); //Ordne das externe GameObject zu
-
-        //Speichere das externe Skript vom GameObject zwischen, um späteren Zugriff zu erleichtern       
-        combination = combinationObject.GetComponent("CurrentCombination") as CurrentCombination; 
+        _isSelected = true;
     }
 
-    //Wird in jedem Frame aufgerufen, nachdem das Skript durch Loslassen des Zylinders gestartet wurde.
-    //Je nach dem, ob der Zylinder im oder gegen den Uhrzeigersinn gedreht wurde, wird die Drehung in die gleiche Richtung vollendet,
-    //bis der Strich wieder oben ist. Sobald die Drehung vollendet ist, wird der List im externen GameObject eine 1 oder -1 hinzugefügt. 
+   
+
+    //Wird in jedem Frame aufgerufen
     void Update ()
     {
-        if (clockWise)
-        {
-            //Drehung noch nicht fertig, weiterdrehen
-            if (transform.localEulerAngles.z < 358)
-            {
-                transform.Rotate(0, 0, 1);
-            }
-            //Drehung fertig
-            else
-            {
-                this.GetComponent<Rigidbody>().Sleep();
-                //_rotationCombi.Add(1); -> Falls die Liste in diesem Skript gespeichert wird
-                //Der Liste eine 1 für "im Uhrzeigersinn" hinzufügen
-                combination.addCombiValue(1);
-                Debug.Log("Aktuelle Kombination: " + combination.getCurrentCombination()); //Aktuelle Liste ausgeben
-                //_rotationCombi = isRotationCorrect(_rotationCombi);
-                Debug.Log("Tür offen? " + combination._doorOpen); //Türstatus ausgeben
-                enabled = false; //Skript deaktivieren
-            }
+       UpdateCumulatedRotation();
+       trigger360Degree();
+    }
+
+    //updates _cumulatedRotation and _lastFrameEulerRotation
+    private void UpdateCumulatedRotation(){
+        float FrameEulerRotation = transform.localEulerAngles.z;
+        float relativeFrameRotation;
+
+        if (FrameEulerRotation - _lastFrameEulerRotation < -180) {
+            //Debug.Log("Rechts Über die Null");
+            relativeFrameRotation = 360 - _lastFrameEulerRotation + FrameEulerRotation;
+        } else if (FrameEulerRotation - _lastFrameEulerRotation  >= 180) {
+            //Debug.Log("Links Über die Null");
+            relativeFrameRotation = 360 - FrameEulerRotation + _lastFrameEulerRotation;
         }
-        //Analog zu oben nur andersherum
-        else
-        {
-            if (transform.localEulerAngles.z > 2)
-            {
-                transform.Rotate(0, 0, -1);
-            }
-            else
-            {
-                this.GetComponent<Rigidbody>().Sleep();
-                //_rotationCombi.Add(-1);
-                combination.addCombiValue(-1);
-                Debug.Log("Aktuelle Kombination: " + combination.getCurrentCombination());
-                //_rotationCombi = isRotationCorrect(_rotationCombi);
-                Debug.Log("Tür offen? " + combination._doorOpen);
-                enabled = false;
-            }
+        else {
+            relativeFrameRotation = FrameEulerRotation - _lastFrameEulerRotation;
         }
+
+        _cumulatedRotation += relativeFrameRotation;
+        _lastFrameEulerRotation = FrameEulerRotation;
+        //Debug.Log(_cumulatedRotation);
+            
+        
+    }
+
+
+
+    //adds item to list after 360 left / right rotation
+    private void trigger360Degree(){
+            //add +1 to list
+            //set _cumulatedRotation = 0 and  _lastFrameEulerRotation = 90.0f;
+            //freeze Button for a second in Ausgangsposition
+            //some sound
+        
+        
+        if(_cumulatedRotation > 360){
+            combination.addCombiValue(+1);
+            _cumulatedRotation = 0;
+            _lastFrameEulerRotation = 90.0f;
+            Debug.Log("360 Grad nach rechts gedreht");
+            
+            List<int> liste = combination.getCurrentCombination();
+            string result = "List contents: ";
+            foreach( var x in liste) {
+                result += x.ToString() + ", ";
+            };
+            Debug.Log(result);
+
+            //calls the disableRotation function
+            StartCoroutine(disableRotation());
+
+            
+
+      
+        } else if (_cumulatedRotation < -360){
+            //add -1 to list
+            //set _cumulatedRotation = 0 and  _lastFrameEulerRotation = 90.0f;
+            //freeze Button for a second in Ausgangsposition
+            //some sound
+
+
+            combination.addCombiValue(-1);
+            _cumulatedRotation = 0;
+            _lastFrameEulerRotation = 90.0f;
+            Debug.Log("360 Grad nach links gedreht");
+            
+            List<int> liste = combination.getCurrentCombination();
+            string result = "List contents: ";
+            foreach( var x in liste) {
+                result += x.ToString() + ", ";
+            };
+            Debug.Log(result);
+
+            //calls the disableRotation function
+            StartCoroutine(disableRotation());
+        }
+     
+    }
+
+
+    //called by
+    IEnumerator disableRotation(){
+        
+        HingeJoint hinge = gameObject.GetComponent(typeof(HingeJoint)) as HingeJoint;
+        Rigidbody rigid = gameObject.GetComponent(typeof(Rigidbody)) as Rigidbody;
+        Transform transform = gameObject.GetComponent(typeof(Transform)) as Transform;
+           HingeJoint dd = GetComponent<HingeJoint>();
+            JointLimits limits = hinge.limits;
+        
+        //adds constraints to RigidBody, doesnt work
+        // rigid.constraints = RigidbodyConstraints.FreezeAll;
+        //yield return new WaitForSeconds(15);
+        // rigid.constraints = RigidbodyConstraints.None;
+        
+        //disables RigidBody, doesnt work
+        // rigid.Sleep();
+        // yield return new WaitForSeconds(2);
+        // rigid.WakeUp();
+       
+        //adds limits to the hinge, does work!
+        hinge.useLimits = true;
+        yield return new WaitForSeconds(15);
+        hinge.useLimits = false;
+       
+
+        
+        
+        
+     
     }
 
     //Unfertiger Prüfmechanismus, ob die letzte Rotation richtig war. Theoretische Logik:
@@ -112,23 +197,27 @@ public class CountRotations : MonoBehaviour
     //    }
     //}
 
-    private bool GetRotateDirection(float from, float to)
-    {
-        float clockWise = 0f;
-        float counterClockWise = 0f;
+    // private bool GetRotateDirection(float from, float to)
+    // {
+    //     float clockWise = 0f;
+    //     float counterClockWise = 0f;
 
-        if (from <= to)
-        {
-            clockWise = to - from;
-            counterClockWise = from + (360 - to);
-        }
-        else
-        {
-            clockWise = (360 - from) + to;
-            counterClockWise = from - to;
-        }
-        return (clockWise <= counterClockWise);
-    }
+    //     if (from <= to)
+    //     {
+    //         clockWise = to - from;
+    //         counterClockWise = from + (360 - to);
+    //     }
+    //     else
+    //     {
+    //         clockWise = (360 - from) + to;
+    //         counterClockWise = from - to;
+    //     }
+    //     // return (clockWise <= counterClockWise);
+    // }
+
+
+
+
     //    gameObject.GetComponent<Rigidbody>().WakeUp();
     //    currentRotationValue = gameObject.transform.localEulerAngles.z;
     //        Debug.Log("currentRotationValue: " + currentRotationValue);
@@ -166,4 +255,50 @@ public class CountRotations : MonoBehaviour
         //{
         //    currentRotationValue = 360.0f + currentRotationValue - firstRotationValue;
         //}
+
+
+    //alte Update Funktion
+    //     void Update ()
+    // {
+    
+    //     if (clockWise)
+    //     {
+    //         //Drehung noch nicht fertig, weiterdrehen
+    //         if (transform.localEulerAngles.z < 358)
+    //         {
+    //             transform.Rotate(0, 0, 1);
+    //         }
+    //         //Drehung fertig
+    //         else
+    //         {
+    //             this.GetComponent<Rigidbody>().Sleep();
+    //             //_rotationCombi.Add(1); -> Falls die Liste in diesem Skript gespeichert wird
+    //             //Der Liste eine 1 für "im Uhrzeigersinn" hinzufügen
+                
+    //             combination.addCombiValue(1);
+    //             Debug.Log("Aktuelle Kombination: " + combination.getCurrentCombination()); //Aktuelle Liste ausgeben
+    //             //_rotationCombi = isRotationCorrect(_rotationCombi);
+    //             Debug.Log("Tür offen? " + combination._doorOpen); //Türstatus ausgeben
+    //             enabled = false; //Skript deaktivieren
+    //         }
+    //     }
+    //     //Analog zu oben nur andersherum
+    //     else
+    //     {
+    //         if (transform.localEulerAngles.z > 2)
+    //         {
+    //             transform.Rotate(0, 0, -1);
+    //         }
+    //         else
+    //         {
+    //             this.GetComponent<Rigidbody>().Sleep();
+    //             //_rotationCombi.Add(-1);
+    //             combination.addCombiValue(-1);
+    //             Debug.Log("Aktuelle Kombination: " + combination.getCurrentCombination());
+    //             //_rotationCombi = isRotationCorrect(_rotationCombi);
+    //             Debug.Log("Tür offen? " + combination._doorOpen);
+    //             enabled = false;
+    //         }
+    //     }
+    // }
 }
