@@ -25,6 +25,7 @@ public class CountRotations : MonoBehaviour
         _lastFrameEulerRotation = 90.0f;
         //GetComponent.hingeJoint..as.
         //rigidbody auf Sleep für 1 Sekunde
+
          
     }
 
@@ -132,15 +133,19 @@ public class CountRotations : MonoBehaviour
     //called by
     IEnumerator disableRotation(){
         
-        HingeJoint hinge = gameObject.GetComponent(typeof(HingeJoint)) as HingeJoint;
-        Rigidbody rigid = gameObject.GetComponent(typeof(Rigidbody)) as Rigidbody;
-        Transform transform = gameObject.GetComponent(typeof(Transform)) as Transform;
-           HingeJoint dd = GetComponent<HingeJoint>();
-            JointLimits limits = hinge.limits;
+        HingeJoint hinge = GetComponent<HingeJoint>();
+        JointLimits limits = hinge.limits;
+
+        hinge.useLimits = true;
+        limits.min = 0;
+        limits.max = 0;
+        hinge.limits = limits;
+        yield return new WaitForSeconds(2);
+        hinge.useLimits = false;
         
         //adds constraints to RigidBody, doesnt work
         // rigid.constraints = RigidbodyConstraints.FreezeAll;
-        //yield return new WaitForSeconds(15);
+        // yield return new WaitForSeconds(15);
         // rigid.constraints = RigidbodyConstraints.None;
         
         //disables RigidBody, doesnt work
@@ -149,9 +154,11 @@ public class CountRotations : MonoBehaviour
         // rigid.WakeUp();
        
         //adds limits to the hinge, does work!
-        hinge.useLimits = true;
-        yield return new WaitForSeconds(15);
-        hinge.useLimits = false;
+        // hinge.useLimits = true;
+        // yield return new WaitForSeconds(15);
+        // hinge.useLimits = false;
+
+        
        
 
         
