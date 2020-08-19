@@ -28,11 +28,13 @@ public class SchlossSchrank : MonoBehaviour
         
         if(locked)
         {
-            LockSchrank();
+            LockMirrorSide();
+            LockNonMirrorSide();
         }
         else
         {
-            UnlockSchrank();
+            UnlockMirrorSide();
+            UnlockNonMirrorSide();
         }
    
     }
@@ -44,18 +46,25 @@ public class SchlossSchrank : MonoBehaviour
     }
     
     
-    void LockSchrank()
+    public void LockMirrorSide()
     {
-        LockDoor(doorLeft);
-        LockDoor(doorRight);
         LockDoor(mirrorDoorLeft);
         LockDoor(mirrorDoorRight);
     }
+
+    public void LockNonMirrorSide()
+    {
+        LockDoor(doorLeft);
+        LockDoor(doorRight);
+    }
     
-    void UnlockSchrank()
+    public void UnlockNonMirrorSide()
     {
         UnlockDoor(doorLeft);
         UnlockDoor(doorRight);
+    }
+    public void UnlockMirrorSide()
+    {
         UnlockDoor(mirrorDoorLeft);
         UnlockDoor(mirrorDoorRight);
     }

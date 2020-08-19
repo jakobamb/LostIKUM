@@ -5,6 +5,9 @@ using UnityEngine;
 public class CountRotations : MonoBehaviour
 {   
     public List<int> CORRECT_COMBI = new List<int>() { 1, 1, -1, 1, 1, 1 };
+    public AudioClip sound;
+
+    public SchlossSchrank schrank;
     private bool _doorOpen = false;
 
     private bool clockWise; //true: im Uhrzeigersinn, false: gegen Uhrzeigersinn
@@ -26,6 +29,7 @@ public class CountRotations : MonoBehaviour
         //GetComponent.hingeJoint..as.
         //rigidbody auf Sleep für 1 Sekunde
 
+        schrank.LockNonMirrorSide();
          
     }
 
@@ -102,6 +106,11 @@ public class CountRotations : MonoBehaviour
             StartCoroutine(disableRotation());
 
             
+        
+            schrank.UnlockNonMirrorSide();
+        
+
+            
 
       
         } else if (_cumulatedRotation < -360){
@@ -140,31 +149,17 @@ public class CountRotations : MonoBehaviour
         limits.min = 0;
         limits.max = 0;
         hinge.limits = limits;
-        yield return new WaitForSeconds(2);
+
+         SFXPlayer.Instance.PlaySFX(sound, transform.position , new SFXPlayer.PlayParameters()
+        {
+            Volume = 1.0f,
+            Pitch = Random.Range(0.8f, 1.2f),
+            SourceID = 1
+        }, 0.5f, false);
+
+        yield return new WaitForSeconds(1);
         hinge.useLimits = false;
-        
-        //adds constraints to RigidBody, doesnt work
-        // rigid.constraints = RigidbodyConstraints.FreezeAll;
-        // yield return new WaitForSeconds(15);
-        // rigid.constraints = RigidbodyConstraints.None;
-        
-        //disables RigidBody, doesnt work
-        // rigid.Sleep();
-        // yield return new WaitForSeconds(2);
-        // rigid.WakeUp();
-       
-        //adds limits to the hinge, does work!
-        // hinge.useLimits = true;
-        // yield return new WaitForSeconds(15);
-        // hinge.useLimits = false;
 
-        
-       
-
-        
-        
-        
-     
     }
 
     //Unfertiger Prüfmechanismus, ob die letzte Rotation richtig war. Theoretische Logik:
