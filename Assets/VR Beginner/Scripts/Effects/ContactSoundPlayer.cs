@@ -32,7 +32,7 @@ public class ContactSoundPlayer : MonoBehaviour
         
         SFXPlayer.Instance.PlaySFX(randomClip, other.contacts[0].point, new SFXPlayer.PlayParameters()
         {
-            Volume = 1.0f,
+            Volume = 0.5f,
             Pitch = Random.Range(0.8f, 1.2f),
             SourceID = m_ID
         }, 0.5f, CloseCaptioned);
