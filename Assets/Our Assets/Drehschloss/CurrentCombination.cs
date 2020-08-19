@@ -2,22 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentCombination : MonoBehaviour
+public class CurrentCombination
 {
-    public bool _doorOpen;
+    public bool _doorOpen = false;
     private List <int> currentCombi = new List <int>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _doorOpen = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //Füge ein neues Element ans Ende der Liste an
     public void addCombiValue (int newValue)
