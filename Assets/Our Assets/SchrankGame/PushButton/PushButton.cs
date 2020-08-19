@@ -69,7 +69,7 @@ public class PushButton : XRBaseInteractable
 
     private float GetLocalYPosition(Vector3 position)
     {
-        Vector3 localPosition = transform.root.InverseTransformPoint(position);
+        Vector3 localPosition = transform.parent.InverseTransformPoint(position);
         return localPosition.y;
     }
 
