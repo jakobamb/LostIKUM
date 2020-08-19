@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 7476387511879548233}
   - component: {fileID: 8334910960873882054}
   m_Layer: 11
-  m_Name: DoorLeftMirror
+  m_Name: DoorRightMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ Transform:
   m_Children:
   - {fileID: 7362466679599313148}
   m_Father: {fileID: 374344746655404380}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6801784608957817358
 MeshFilter:
@@ -174,7 +174,7 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -90
+    min: 0
     max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
@@ -497,6 +497,7 @@ MonoBehaviour:
   doorRight: {fileID: 5353346318192943577}
   mirrorDoorLeft: {fileID: 1860234750225320722}
   mirrorDoorRight: {fileID: 6544775608270089955}
+  locked: 0
   test: 
 --- !u!1 &3109790892139056804
 GameObject:
@@ -860,7 +861,7 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
+    max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -961,7 +962,7 @@ GameObject:
   - component: {fileID: 7063033678999373669}
   - component: {fileID: 3116743287120080051}
   m_Layer: 11
-  m_Name: DoorRightMirror
+  m_Name: DoorLeftMirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -980,7 +981,7 @@ Transform:
   m_Children:
   - {fileID: 949098809844440612}
   m_Father: {fileID: 374344746655404380}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6095426261438341038
 MeshFilter:
@@ -1085,7 +1086,7 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
+    max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1140,7 +1141,7 @@ MonoBehaviour:
   m_CustomReticle: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 0
   m_TrackPosition: 1
   m_SmoothPosition: 0
   m_SmoothPositionAmount: 5
@@ -1390,7 +1391,7 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -90
+    min: 0
     max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
@@ -1584,8 +1585,8 @@ Transform:
   m_LocalPosition: {x: 0.6264992, y: 1.5274184, z: -1.2673409}
   m_LocalScale: {x: 0.8, y: 1, z: 0.90909094}
   m_Children:
-  - {fileID: 6647024179083822914}
   - {fileID: 7315462217213199436}
+  - {fileID: 6647024179083822914}
   m_Father: {fileID: 1952930073222199654}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

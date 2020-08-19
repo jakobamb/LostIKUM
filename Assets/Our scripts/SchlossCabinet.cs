@@ -10,7 +10,14 @@ public class SchlossCabinet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Lock();
+        if(locked)
+        {
+            Lock();
+        }
+        else
+        {
+            Unlock();
+        }
     }
 
     
