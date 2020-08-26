@@ -13,7 +13,8 @@ public class SchlossSchrank : MonoBehaviour
     HingeJoint hingeMDL;
     HingeJoint hingeMDR;
     
-    public bool locked;
+    public bool nonMirrorSideLocked;
+    public bool mirrorSideLocked;
     
     public string test;
     
@@ -25,17 +26,20 @@ public class SchlossSchrank : MonoBehaviour
         ActivateLimits(doorRight);
         ActivateLimits(mirrorDoorLeft);
         ActivateLimits(mirrorDoorRight);
-        
-        if(locked)
-        {
+
+        if(mirrorSideLocked){
             LockMirrorSide();
-            LockNonMirrorSide();
-        }
-        else
-        {
+        } else {
             UnlockMirrorSide();
+        }
+        
+        if (nonMirrorSideLocked)
+        {
+            LockNonMirrorSide(); 
+        } else {
             UnlockNonMirrorSide();
         }
+  
    
     }
     
