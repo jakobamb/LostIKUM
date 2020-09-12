@@ -8,11 +8,7 @@ public class SchlossSchrank : MonoBehaviour
     public GameObject doorRight;
     public GameObject mirrorDoorLeft;
     public GameObject mirrorDoorRight;
-    HingeJoint hingeDL;
-    HingeJoint hingeDR;
-    HingeJoint hingeMDL;
-    HingeJoint hingeMDR;
-    
+
     public bool nonMirrorSideLocked;
     public bool mirrorSideLocked;
     
@@ -22,12 +18,13 @@ public class SchlossSchrank : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ActivateLimits(doorLeft);
+/*        ActivateLimits(doorLeft);
         ActivateLimits(doorRight);
         ActivateLimits(mirrorDoorLeft);
-        ActivateLimits(mirrorDoorRight);
+        ActivateLimits(mirrorDoorRight);*/
 
-        if(mirrorSideLocked){
+        if (mirrorSideLocked)
+        {
             LockMirrorSide();
         } else {
             UnlockMirrorSide();
@@ -42,7 +39,13 @@ public class SchlossSchrank : MonoBehaviour
   
    
     }
-    
+
+/*    private void Update()
+    {
+        LockMirrorSide();
+        LockNonMirrorSide();
+    }*/
+
     private void ActivateLimits(GameObject door)
     {
         HingeJoint hinge = door.GetComponent<HingeJoint>();

@@ -125,58 +125,8 @@ Transform:
   - {fileID: 3860501995704947527}
   - {fileID: 2034536557996581073}
   m_Father: {fileID: 2332627936853228954}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1819675257150925023
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1095055239198424340}
-  - component: {fileID: 3959206512049935737}
-  m_Layer: 0
-  m_Name: FauxDrehschloss
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1095055239198424340
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819675257150925023}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6264992, y: 1.5274184, z: -1.2673409}
-  m_LocalScale: {x: 0.8, y: 1, z: 0.90909094}
-  m_Children: []
-  m_Father: {fileID: 2332627936853228954}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3959206512049935737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819675257150925023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388c28d864960495791c30f994356e55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorLeft: {fileID: 6735337991527697670}
-  doorRight: {fileID: 8146997633913120037}
-  mirrorDoorLeft: {fileID: 2492173483368992750}
-  mirrorDoorRight: {fileID: 7031998699845429791}
-  nonMirrorSideLocked: 0
-  mirrorSideLocked: 0
-  test: 
 --- !u!1 &2492173483368992750
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2332627936853228954}
   m_Layer: 11
-  m_Name: MetalCabinetDDWalledFull05 1
+  m_Name: metal_cab_new
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,7 +571,6 @@ Transform:
   m_Children:
   - {fileID: 4876055114044583824}
   - {fileID: 4149171256227740659}
-  - {fileID: 1095055239198424340}
   - {fileID: 3391883725316856224}
   - {fileID: 4500481009928770976}
   m_Father: {fileID: 0}
@@ -738,7 +687,7 @@ Transform:
   - {fileID: 6827638534708854960}
   - {fileID: 7456802612988773310}
   m_Father: {fileID: 2332627936853228954}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6543820668763184832
 GameObject:
