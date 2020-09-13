@@ -8,7 +8,7 @@ public class CountRotations : MonoBehaviour
     public AudioClip rotationSound;
     public AudioClip successSound;
 
-    public SchlossSchrank schrank;
+    public SchrankTransitionMgr schrank;
 
     private CurrentCombination combination = new CurrentCombination();
     private bool clockWise; //true: im Uhrzeigersinn, false: gegen Uhrzeigersinn
