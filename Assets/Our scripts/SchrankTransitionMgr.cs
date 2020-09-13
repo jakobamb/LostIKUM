@@ -12,35 +12,50 @@ public class SchrankTransitionMgr : MonoBehaviour
     public bool nonMirrorSideLocked;
     public bool mirrorSideLocked;
 
+    public GameObject schrankGame;
+
     public trigger_rotation rotationTrigger;
 
-    private TransitionState currentState = TransitionState.locked;
+    private TransitionState currentState = TransitionState.initial;
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateState(TransitionState.locked);
+        UpdateState(TransitionState.initial);
     }
-
-
     private void UpdateState(TransitionState newState)
     {
-        if (newState == TransitionState.locked)
+        Debug.Log("[TransitionStateMgr]: newState:" + newState.ToString());
+
+        if (newState == TransitionState.initial)
         {
             // lock all doors
             ActivateLimits(doorLeft);
             ActivateLimits(doorRight);
             ActivateLimits(mirrorDoorLeft);
             ActivateLimits(mirrorDoorRight);
-            if (mirrorSideLocked) {LockMirrorSide();} else {UnlockMirrorSide();}
-            if (nonMirrorSideLocked) {LockNonMirrorSide();} else {UnlockNonMirrorSide();}
+            LockMirrorSide();
+            LockNonMirrorSide();
 
             // disable rotation trigger
             rotationTrigger.activated = false;
+
+            // disable the Schrank Game initially.
+            schrankGame.SetActive(false);
+
+        } else if (newState == TransitionState.enableToMirror)
+        {
+            UnlockNonMirrorSide();
+            schrankGame.SetActive(true);
         }
     }
 
-    void LockDoor(GameObject door)
+    public void DrehschlossUnlocked()
+    {
+        UpdateState(TransitionState.enableToMirror);
+    }
+
+    private void LockDoor(GameObject door)
     {
         HingeJoint hinge = door.GetComponent<HingeJoint>();
         JointLimits limits = hinge.limits;
@@ -55,30 +70,30 @@ public class SchrankTransitionMgr : MonoBehaviour
         hinge.useLimits = true;
     }
 
-    public void LockMirrorSide()
+    private void LockMirrorSide()
     {
         LockDoor(mirrorDoorLeft);
         LockDoor(mirrorDoorRight);
     }
 
-    public void LockNonMirrorSide()
+    private void LockNonMirrorSide()
     {
         LockDoor(doorLeft);
         LockDoor(doorRight);
     }
 
-    public void UnlockNonMirrorSide()
+    private void UnlockNonMirrorSide()
     {
         UnlockDoor(doorLeft);
         UnlockDoor(doorRight);
     }
-    public void UnlockMirrorSide()
+    private void UnlockMirrorSide()
     {
         UnlockDoor(mirrorDoorLeft);
         UnlockDoor(mirrorDoorRight);
     }
 
-    void UnlockDoor(GameObject door)
+    private void UnlockDoor(GameObject door)
     {
         HingeJoint hinge = door.GetComponent<HingeJoint>();
         JointLimits limits = hinge.limits;
@@ -102,7 +117,7 @@ public class SchrankTransitionMgr : MonoBehaviour
  */
 public enum TransitionState
 {
-    locked,
+    initial,
     enableToMirror,
     duringToMirror,
     afterToMirror,

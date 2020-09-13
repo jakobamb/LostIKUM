@@ -1,63 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class CountRotations : MonoBehaviour
-{   
-    public List<int> CORRECT_COMBI = new List<int>() { 1, 1, -1, 1, -1, 1 };
-    public AudioClip rotationSound;
-    public AudioClip successSound;
+{
+    public UnityEvent onFullRotation;
+    public UnityEvent onUnlock;
+
+    public List<int> CORRECT_COMBI = new List<int>() { 1, -1, 1};
 
     public SchrankTransitionMgr schrank;
 
-    private CurrentCombination combination = new CurrentCombination();
-    private bool clockWise; //true: im Uhrzeigersinn, false: gegen Uhrzeigersinn
-    private float currentRotationValue;
-   
-    
+    private CurrentCombination combination = new CurrentCombination();   
 
     private bool _isSelected = false;
     private float _cumulatedRotation = 0.0f; 
-    private float _lastFrameEulerRotation;
-    
-
-
-    //Wird beim Starten des Spiels einmalig initialisiert
-    void Start()
-    {
-        _lastFrameEulerRotation = 90.0f;
-        //GetComponent.hingeJoint..as.
-        //rigidbody auf Sleep für 1 Sekunde
-
-        schrank.LockNonMirrorSide();
-         
-    }
-
-
-
-    //Wird beim Loslassen des Zylinders aufgerufen
-    public void OnRelease()
-    {
-        _isSelected = false;
-    }
-
-    //Wird beim Anfassen des Zylinders aufgerufen
-    public void OnSelect()
-    {
-        _isSelected = true;
-    }
-
-   
+    private float _lastFrameEulerRotation = 0f;
 
     //Wird in jedem Frame aufgerufen
     void Update ()
     {
-       UpdateCumulatedRotation();
-       trigger360Degree();
+        UpdateCumulatedRotation();
+
+        if (Mathf.Abs(_cumulatedRotation) > 360) {
+            triggerFullRotation();
+        }
     }
 
     //updates _cumulatedRotation and _lastFrameEulerRotation
     private void UpdateCumulatedRotation(){
+
+        Debug.Log(_cumulatedRotation);
+        // Debug.Log(_lastFrameEulerRotation);
         float FrameEulerRotation = transform.localEulerAngles.z;
         float relativeFrameRotation;
 
@@ -74,37 +50,35 @@ public class CountRotations : MonoBehaviour
 
         _cumulatedRotation += relativeFrameRotation;
         _lastFrameEulerRotation = FrameEulerRotation;
-        //Debug.Log(_cumulatedRotation);
-            
-        
     }
 
 
 
     //adds item to list after 360 left / right rotation
-    private void trigger360Degree(){
-
-        if(_cumulatedRotation > 360){
+    private void triggerFullRotation()
+    {
+        if (_cumulatedRotation > 360)
+        {
             //add +1 to list -> complete right turn
             combination.addCombiValue(+1);
-             //set _cumulatedRotation = 0 and  _lastFrameEulerRotation = 90.0f;
-            _cumulatedRotation = 0;
-            _lastFrameEulerRotation = 90.0f;
-            Debug.Log("360 Grad nach rechts gedreht");
-
-            //calls the disableRotation function
-            StartCoroutine(disableRotation());
-        } else if (_cumulatedRotation < -360){
-            //add -1 to list ->complete left turn
-            combination.addCombiValue(-1);
-            //set _cumulatedRotation = 0 and  _lastFrameEulerRotation = 90.0f;
-            _cumulatedRotation = 0;
-            _lastFrameEulerRotation = 90.0f;
-            Debug.Log("360 Grad nach links gedreht");
-
-            //calls the disableRotation function
-            StartCoroutine(disableRotation());
+            Debug.Log("[CountRotations] 360 Grad nach rechts gedreht");
         }
+        else if (_cumulatedRotation < -360)
+        {
+            //add -1 to list -> complete left turn
+            combination.addCombiValue(-1);
+            Debug.Log("[CountRotations] 360 Grad nach links gedreht");
+
+        }
+        // reset the button
+        _cumulatedRotation = 0;
+        transform.localEulerAngles = new Vector3(0, 0, 0);
+        _lastFrameEulerRotation = 0;
+
+        //_lastFrameEulerRotation = 0f;
+
+        // StartCoroutine(disableRotation());
+        onFullRotation.Invoke();
     }
 
 
@@ -112,6 +86,7 @@ public class CountRotations : MonoBehaviour
     //freezes the button for a second
     //calls correctCombiHandler if Combi is correct
     //plays sound
+    // What is this for???
     IEnumerator disableRotation(){
         
         HingeJoint hinge = GetComponent<HingeJoint>();
@@ -125,18 +100,10 @@ public class CountRotations : MonoBehaviour
 
          //checks if combi is correct
         if(isCombiCorrect()){
-                correctCombiHandler();
-                yield return new WaitForSeconds(1);
-                hinge.useLimits = false;
+            correctCombiHandler();
+            yield return new WaitForSeconds(1);
+            hinge.useLimits = false;
         } else {
-            //play sound
-            SFXPlayer.Instance.PlaySFX(rotationSound, transform.position , new SFXPlayer.PlayParameters()
-            {
-                Volume = 1.0f,
-                Pitch = Random.Range(1.0f, 1.0f),
-                SourceID = 1
-            }, 0.5f, false);
-
             yield return new WaitForSeconds(1);
             hinge.useLimits = false;
         }
@@ -166,17 +133,10 @@ public class CountRotations : MonoBehaviour
     //handles the correct combination
     private void correctCombiHandler(){
 
-        schrank.UnlockNonMirrorSide();
+        // tell the Transition Manager
+        schrank.DrehschlossUnlocked();
 
-         //plays sound
-         SFXPlayer.Instance.PlaySFX(successSound, transform.position , new SFXPlayer.PlayParameters()
-        {
-            Volume = 1.0f,
-            Pitch = Random.Range(1.0f, 1.0f),
-            SourceID = 1
-        }, 0.5f, false);
         Debug.Log("Correct Combination!");
-        schrank.UnlockNonMirrorSide();
         combination.clearCombi();
     }
 }
