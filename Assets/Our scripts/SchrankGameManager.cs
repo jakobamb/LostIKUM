@@ -11,6 +11,7 @@ using UnityEngine;
 public class SchrankGameManager : MonoBehaviour
 {
     public UnityEvent onCorrectAnswer = null;
+    public SchrankTransitionMgr transitionMgr;
 
     List<string> _tasks = new List<string>{ "C", "M", "Y", "K", "R", "G", "B" };
     public UnityEngine.UI.Text _screenText;
@@ -118,6 +119,7 @@ public class SchrankGameManager : MonoBehaviour
         _gameOver = true;
         _screenText.text = "Inverting completed.";
         _screenText.transform.localScale = new Vector3(-1,1,1);
+        transitionMgr.ToMirrorGameFinished();
     }
 
     public void resetGame()

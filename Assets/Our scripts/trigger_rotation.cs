@@ -7,16 +7,17 @@ public class trigger_rotation: MonoBehaviour
 
     public RotationRedirector redirector;
     public bool started = false;
-    public bool activated = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("rotation trigger enter");
-        if (!started && activated)
+        if (other.tag == "MainCamera")
         {
-            redirector.StartRedirection();
-            Debug.Log("rotation stated");
-            started = true;
+            if (!started)
+            {
+                redirector.StartRedirection();
+                Debug.Log("[trigger_rotation] rotation stated");
+                started = true;
+            }
         }
     }
 }

@@ -1,28 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class SchrankTransitionMgr : MonoBehaviour
 {
+    // references to game objects
     public GameObject doorLeft;
     public GameObject doorRight;
     public GameObject mirrorDoorLeft;
     public GameObject mirrorDoorRight;
 
+    public GameObject schrankGame;
+
+    // Events
+    public UnityEvent onDoorClosing;
+    public UnityEvent onDoorUnlocked;
+
+    // status fields
     public bool nonMirrorSideLocked;
     public bool mirrorSideLocked;
 
-    public GameObject schrankGame;
-
-    public trigger_rotation rotationTrigger;
-
-    private TransitionState currentState = TransitionState.initial;
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         UpdateState(TransitionState.initial);
     }
+
     private void UpdateState(TransitionState newState)
     {
         Debug.Log("[TransitionStateMgr]: newState:" + newState.ToString());
@@ -37,22 +40,40 @@ public class SchrankTransitionMgr : MonoBehaviour
             LockMirrorSide();
             LockNonMirrorSide();
 
-            // disable rotation trigger
-            rotationTrigger.activated = false;
-
             // disable the Schrank Game initially.
             schrankGame.SetActive(false);
 
         } else if (newState == TransitionState.enableToMirror)
         {
+            onDoorUnlocked.Invoke();
             UnlockNonMirrorSide();
             schrankGame.SetActive(true);
+        } else if (newState == TransitionState.duringToMirror)
+        {
+            // close doors and lock all
+            onDoorClosing.Invoke();
+            LockMirrorSide();
+            LockNonMirrorSide();
+        } else if (newState == TransitionState.afterToMirror)
+        {
+            onDoorUnlocked.Invoke();
+            UnlockMirrorSide();
         }
     }
 
     public void DrehschlossUnlocked()
     {
         UpdateState(TransitionState.enableToMirror);
+    }
+
+    public void CabinetTriggerEnter()
+    {
+        UpdateState(TransitionState.duringToMirror);
+    }
+
+    public void ToMirrorGameFinished()
+    {
+        UpdateState(TransitionState.afterToMirror);
     }
 
     private void LockDoor(GameObject door)
@@ -72,25 +93,37 @@ public class SchrankTransitionMgr : MonoBehaviour
 
     private void LockMirrorSide()
     {
-        LockDoor(mirrorDoorLeft);
+        mirrorSideLocked = true;
+        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = true;
+        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = true;
         LockDoor(mirrorDoorRight);
+        LockDoor(mirrorDoorLeft);
     }
 
     private void LockNonMirrorSide()
     {
+        nonMirrorSideLocked = true;
+        doorLeft.GetComponent<HingeJoint>().useSpring = true;
+        doorRight.GetComponent<HingeJoint>().useSpring = true;
         LockDoor(doorLeft);
         LockDoor(doorRight);
+    }
+    private void UnlockMirrorSide()
+    {
+        mirrorSideLocked = false;
+        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = false;
+        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = false;
+        UnlockDoor(mirrorDoorLeft);
+        UnlockDoor(mirrorDoorRight);
     }
 
     private void UnlockNonMirrorSide()
     {
+        nonMirrorSideLocked = false;
+        doorLeft.GetComponent<HingeJoint>().useSpring = false;
+        doorRight.GetComponent<HingeJoint>().useSpring = false;
         UnlockDoor(doorLeft);
         UnlockDoor(doorRight);
-    }
-    private void UnlockMirrorSide()
-    {
-        UnlockDoor(mirrorDoorLeft);
-        UnlockDoor(mirrorDoorRight);
     }
 
     private void UnlockDoor(GameObject door)

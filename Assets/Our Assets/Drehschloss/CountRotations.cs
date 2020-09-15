@@ -30,8 +30,6 @@ public class CountRotations : MonoBehaviour
     //updates _cumulatedRotation and _lastFrameEulerRotation
     private void UpdateCumulatedRotation(){
 
-        Debug.Log(_cumulatedRotation);
-        // Debug.Log(_lastFrameEulerRotation);
         float FrameEulerRotation = transform.localEulerAngles.z;
         float relativeFrameRotation;
 
