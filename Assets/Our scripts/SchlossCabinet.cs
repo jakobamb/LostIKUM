@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SchlossCabinet : MonoBehaviour
 {
     public GameObject drawer;
+    public GameObject key;
     ConfigurableJoint drawerslide;
     public bool locked;
     // Start is called before the first frame update
     void Start()
     {
+        
+
         if(locked)
         {
             Lock();
@@ -26,6 +30,8 @@ public class SchlossCabinet : MonoBehaviour
         if(other.gameObject.CompareTag("CabinetKey"))
         {
             Unlock();
+            //key.GetComponent<XRGrabInteractable>().enabled = false;
+
         }
     }
     
