@@ -6,13 +6,25 @@ public class SchlossDoor : MonoBehaviour
 {
 
     HingeJoint hinge;
+    public bool locked;
+
     // Start is called before the first frame update
     protected void Start()
     {
         hinge = GetComponent<HingeJoint>();
         hinge.useLimits = true;
-        LockDoor();
+        UnlockDoor();
+
     }
+
+    void Update(){
+        if(locked){
+            LockDoor();
+        } else {
+            UnlockDoor();
+        }
+    }
+
     
 
     private void OnTriggerEnter(Collider col)
@@ -29,6 +41,7 @@ public class SchlossDoor : MonoBehaviour
         limits.min = 0;
         limits.max = 0;
         hinge.limits = limits;
+        locked = true;
         
     }
     private void UnlockDoor(){
@@ -36,6 +49,7 @@ public class SchlossDoor : MonoBehaviour
         JointLimits limits = hinge.limits;
         limits.max = 100;
         hinge.limits = limits;
+        locked = false;
     }
 }
 

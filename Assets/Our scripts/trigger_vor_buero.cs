@@ -7,10 +7,15 @@ public class trigger_vor_buero : MonoBehaviour
 	
 	public GameObject Teekueche;
 	public GameObject Buero;
+	public SchlossDoor Tuer_Buero;
+	public SchlossDoor Tuer_Teekueche;
+
 
 	void OnTriggerEnter (Collider other)
 	{	
 		Teekueche.SetActive(false);
 		Buero.SetActive(true);
+		Tuer_Buero.locked = false;
+		Tuer_Teekueche.locked = true;
 	}
 }
