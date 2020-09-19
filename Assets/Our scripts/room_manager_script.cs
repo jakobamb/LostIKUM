@@ -15,8 +15,6 @@ public class room_manager_script : MonoBehaviour
 
         //deactivates Gameobject Teeküche
         Teekueche.SetActive(false);
-
-        Overlay.SetActive(false);
         Schreibtisch.SetActive(true);
     }
 

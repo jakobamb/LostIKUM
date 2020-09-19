@@ -11,9 +11,14 @@ public class trigger_vor_teekueche : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		Teekueche.SetActive(true);
-		Buero.SetActive(false);
-		Tuer_Buero.locked = true;
-		Tuer_Teekueche.locked = false;
+		if (other.gameObject.CompareTag("Player")){
+            
+			Teekueche.SetActive(true);
+			Buero.SetActive(false);
+			Tuer_Buero.locked = true;
+			Tuer_Teekueche.locked = false;
+			
+			Debug.Log("Teeküchentrigger Collided!");
+		}
 	}
 }
