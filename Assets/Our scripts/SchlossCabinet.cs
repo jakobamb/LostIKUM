@@ -30,7 +30,7 @@ public class SchlossCabinet : MonoBehaviour
         if(other.gameObject.CompareTag("CabinetKey"))
         {
             Unlock();
-            //key.GetComponent<XRGrabInteractable>().enabled = false;
+            key.GetComponent<XRGrabInteractableInherit>().enabled = false;
 
         }
     }

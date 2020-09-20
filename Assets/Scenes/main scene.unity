@@ -2595,6 +2595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Teek\xFCche m\xF6bliert"
       objectReference: {fileID: 0}
+    - target: {fileID: 2521101192870910101, guid: 68622e9bc36000c4cae8528cfd60388c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68622e9bc36000c4cae8528cfd60388c, type: 3}
 --- !u!1 &702904054 stripped
