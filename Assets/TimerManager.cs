@@ -9,7 +9,7 @@ public class TimerManager : MonoBehaviour
     public List<Text> _timerTexts = new List<Text>();
     // the start time in minutes
     public int _startTime = 30;
-    private float _timeLeft;
+    public float _timeLeft;
 
     // Start is called before the first frame update
     void Start()
