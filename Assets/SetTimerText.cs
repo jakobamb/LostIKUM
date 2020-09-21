@@ -23,12 +23,10 @@ public class SetTimerText : MonoBehaviour
         termText = terminText.GetComponent<Text>();
         uhrText = uhrzeitText.GetComponent<Text>();
 
-        termText.fontSize = 8;
+        termText.fontSize = 2;
         termText.alignment = TextAnchor.UpperLeft;
-        termText.text = "Termin um 23:30: \n \"Ins Büro\"";
-
-
-        uhrText.fontSize = 8;
+        termText.text = "23:20   Büro\nNachtwache + Sp.Matrix init.\n\n00:30   Büro\nTablette vorbereiten\n\n02:30   H130\nGTA5 mit Dr.Prof. S";
+        uhrText.fontSize = 2;
         uhrText.alignment = TextAnchor.LowerRight;
 
     }
@@ -39,7 +37,8 @@ public class SetTimerText : MonoBehaviour
         time = time + Time.deltaTime;
         string hours = Mathf.Floor(time / 1440).ToString("00");
         string minutes = (Mathf.Floor(time / 60)%24).ToString("00");
-        string timerString = string.Format("{0}:{1}", hours, minutes);
+        string seconds = Mathf.Floor(time%60).ToString("00");
+        string timerString = string.Format("{0}:{1}:{2}", hours, minutes, seconds);
         uhrText.text = timerString;
     }
 }

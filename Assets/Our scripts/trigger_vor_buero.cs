@@ -21,4 +21,5 @@ public class trigger_vor_buero : MonoBehaviour
 			Debug.Log("Bürotrigger Collided!");
 		}
 	}
+	
 }
