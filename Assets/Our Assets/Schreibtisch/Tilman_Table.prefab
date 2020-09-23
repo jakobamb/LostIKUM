@@ -1403,8 +1403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawer: {fileID: 3361585311715640502}
-  key: {fileID: 0}
-  locked: 0
+  locked: 1
+  keyTag: CabinetKey
 --- !u!1 &3768285783017983496
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,9 +6,10 @@ using UnityEngine;
 public class SchlossCabinet : MonoBehaviour
 {
     public GameObject drawer;
-    public GameObject key;
     ConfigurableJoint drawerslide;
+
     public bool locked;
+    public string keyTag;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +28,10 @@ public class SchlossCabinet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {   
-        if(other.gameObject.CompareTag("CabinetKey"))
+        if(other.gameObject.CompareTag(keyTag))
         {
             Unlock();
-            key.GetComponent<XRGrabInteractableInherit>().enabled = false;
+            other.GetComponent<XRGrabInteractableInherit>().enabled = false;
 
         }
     }
