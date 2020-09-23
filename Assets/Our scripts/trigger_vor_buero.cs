@@ -13,7 +13,7 @@ public class trigger_vor_buero : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{	
-		if (other.gameObject.CompareTag("Player")) {
+		if (other.gameObject.CompareTag("MainCamera")) {
 			Teekueche.SetActive(false);
 			Buero.SetActive(true);
 			Tuer_Buero.locked = false;

@@ -10,7 +10,7 @@ public class TriggerCabinetGame: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!started && other.tag == "MainCamera")
+        if (!started && other.gameObject.CompareTag("MainCamera"))
         {
             transitionMgr.CabinetTriggerEnter();
             Debug.Log("[TriggerCabinetGame] Cabinet game stated");

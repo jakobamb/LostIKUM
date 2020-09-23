@@ -94,8 +94,8 @@ public class SchrankTransitionMgr : MonoBehaviour
     private void LockMirrorSide()
     {
         mirrorSideLocked = true;
-        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = true;
-        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = true;
+        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = false;
+        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = false;
         LockDoor(mirrorDoorRight);
         LockDoor(mirrorDoorLeft);
     }
@@ -111,8 +111,8 @@ public class SchrankTransitionMgr : MonoBehaviour
     private void UnlockMirrorSide()
     {
         mirrorSideLocked = false;
-        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = false;
-        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = false;
+        mirrorDoorLeft.GetComponent<HingeJoint>().useSpring = true;
+        mirrorDoorRight.GetComponent<HingeJoint>().useSpring = true;
         UnlockDoor(mirrorDoorLeft);
         UnlockDoor(mirrorDoorRight);
     }

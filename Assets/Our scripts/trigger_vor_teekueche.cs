@@ -11,7 +11,7 @@ public class trigger_vor_teekueche : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.CompareTag("Player")){
+		if (other.gameObject.CompareTag("MainCamera")){
             
 		
 			Buero.SetActive(false);

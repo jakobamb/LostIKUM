@@ -10,7 +10,8 @@ public class trigger_rotation: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "MainCamera")
+        Debug.Log(other.tag);
+        if (other.gameObject.CompareTag("MainCamera"))
         {
             if (!started)
             {
