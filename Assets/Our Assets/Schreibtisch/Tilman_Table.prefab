@@ -850,6 +850,7 @@ GameObject:
   - component: {fileID: 3361585311715640392}
   - component: {fileID: 3361585311715640397}
   - component: {fileID: 5439142890615050348}
+  - component: {fileID: 5362128963685692441}
   m_Layer: 11
   m_Name: DrawerRight
   m_TagString: Untagged
@@ -1111,6 +1112,20 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 0.25
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
+--- !u!114 &5362128963685692441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361585311715640502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627d4d9cdde2e428e8eba034b891f690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyTag: CabinetKey
+  locked: 1
 --- !u!1 &3361585311779232534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,7 +1335,6 @@ GameObject:
   - component: {fileID: 3361585312323254670}
   - component: {fileID: 3361585312323254659}
   - component: {fileID: 1149708416296701866}
-  - component: {fileID: 1979050845736656246}
   m_Layer: 0
   m_Name: KeySocket
   m_TagString: Untagged
@@ -1390,21 +1404,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1979050845736656246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3361585312323254671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627d4d9cdde2e428e8eba034b891f690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawer: {fileID: 3361585311715640502}
-  locked: 1
-  keyTag: CabinetKey
 --- !u!1 &3768285783017983496
 GameObject:
   m_ObjectHideFlags: 0
