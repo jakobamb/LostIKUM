@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 6685463279974136850}
   - component: {fileID: 1628334509209858429}
   - component: {fileID: 9079664074927003612}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Key Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   m_AttachTransform: {fileID: 5682289946431304038}
   m_StartingSelectedInteractable: {fileID: 0}
   m_OnHoverEnter:
@@ -318,7 +318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5682289946431304038}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,3 +578,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef11bf38a7974164ba879978e792c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locked: 0
+  keyTag: 
