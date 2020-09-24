@@ -12,6 +12,7 @@ public class SchrankTransitionMgr : MonoBehaviour
     public GameObject mirrorDoorRight;
 
     public GameObject schrankGame;
+    public GameObject bureauMirrored;
 
     // Events
     public UnityEvent onDoorClosing;
@@ -56,6 +57,7 @@ public class SchrankTransitionMgr : MonoBehaviour
             LockNonMirrorSide();
         } else if (newState == TransitionState.afterToMirror)
         {
+            bureauMirrored.SetActive(true);
             onDoorUnlocked.Invoke();
             UnlockMirrorSide();
         }

@@ -26,7 +26,7 @@ public class SetTimerText : MonoBehaviour
         termText.fontSize = 2;
         termText.alignment = TextAnchor.UpperLeft;
         termText.text = "23:20   Büro\nNachtwache + Sp.Matrix init.\n\n00:30   Büro\nTablette vorbereiten\n\n02:30   H130\nGTA5 mit Dr.Prof. S";
-        uhrText.fontSize = 2;
+        uhrText.fontSize = 20;
         uhrText.alignment = TextAnchor.LowerRight;
 
     }

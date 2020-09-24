@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SchlossDoor : MonoBehaviour
 {
-
+    public UnityEvent playLockedSound;
+    public UnityEvent playUnlockSound;
     HingeJoint hinge;
     public bool locked;
 
@@ -26,6 +28,14 @@ public class SchlossDoor : MonoBehaviour
         }
     }
 
+
+    public void onOpenAttempt()
+    {
+        if (locked)
+        {
+            playLockedSound.Invoke();
+        }
+    }
     
 
     private void OnTriggerEnter(Collider col)
@@ -46,6 +56,7 @@ public class SchlossDoor : MonoBehaviour
         
     }
     private void UnlockDoor(){
+        playUnlockSound.Invoke();
         hinge = GetComponent<HingeJoint>();
         JointLimits limits = hinge.limits;
         limits.max = 100;

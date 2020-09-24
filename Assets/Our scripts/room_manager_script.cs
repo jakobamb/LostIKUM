@@ -87,4 +87,10 @@ public class room_manager_script : MonoBehaviour
             OutroSuccess.SetActive(true);
         }
     }
+
+    public void triggerGameOverSuccess()
+    {
+        Debug.Log("[room_manager_script] Game Over, win condition triggered.");
+        success = true;
+    }
 }
