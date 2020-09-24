@@ -70,22 +70,22 @@ public class SchrankGameManager : MonoBehaviour
         }
         // Task: R = M + Y
         if (_currentTask == "R" && 
-            (_currentButtonType.ToString() == "M" && _lastButtonType.ToString() == "Y") ||
-             (_currentButtonType.ToString() == "Y" && _lastButtonType.ToString() == "M"))
+             ((_currentButtonType.ToString() == "M" && _lastButtonType.ToString() == "Y") ||
+             (_currentButtonType.ToString() == "Y" && _lastButtonType.ToString() == "M")))
         {
             return true;
         }
         // Task: G = C + Y
         if (_currentTask == "G" &&
-            (_currentButtonType.ToString() == "C" && _lastButtonType.ToString() == "Y") ||
-             (_currentButtonType.ToString() == "Y" && _lastButtonType.ToString() == "C"))
+            ((_currentButtonType.ToString() == "C" && _lastButtonType.ToString() == "Y") ||
+             (_currentButtonType.ToString() == "Y" && _lastButtonType.ToString() == "C")))
         {
             return true;
         }
         // Task: B = C + M
         if (_currentTask == "B" &&
-            (_currentButtonType.ToString() == "C" && _lastButtonType.ToString() == "M") ||
-             (_currentButtonType.ToString() == "M" && _lastButtonType.ToString() == "C"))
+            ((_currentButtonType.ToString() == "C" && _lastButtonType.ToString() == "M") ||
+             (_currentButtonType.ToString() == "M" && _lastButtonType.ToString() == "C")))
         {
             return true;
         }
