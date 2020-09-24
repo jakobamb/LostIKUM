@@ -8,13 +8,14 @@ public class SchlossDoor : MonoBehaviour
     HingeJoint hinge;
     public bool locked;
 
+    [TagSelector]
+    public string keyTag = "";
+
     // Start is called before the first frame update
     protected void Start()
     {
         hinge = GetComponent<HingeJoint>();
         hinge.useLimits = true;
-        UnlockDoor();
-
     }
 
     void Update(){
@@ -29,7 +30,7 @@ public class SchlossDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
         {
-            if(col.gameObject.CompareTag("Hauptkey"))
+            if(col.gameObject.CompareTag(keyTag))
             {
                 UnlockDoor();
             }

@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class SchlossCabinet : MonoBehaviour
 {
-    public GameObject drawer;
     ConfigurableJoint drawerslide;
 
-    public bool locked;
-    public string keyTag;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [TagSelector]
+    public string keyTag = "";
 
+    public bool locked;
+
+    void Update()
+    {
         if(locked)
         {
             Lock();
@@ -38,14 +37,14 @@ public class SchlossCabinet : MonoBehaviour
     
     private void Lock()
     {
-        drawerslide = drawer.GetComponent<ConfigurableJoint>();
+        drawerslide = GetComponent<ConfigurableJoint>();
         drawerslide.xMotion = ConfigurableJointMotion.Locked;
         locked = true;
     }
     
     private void Unlock()
     {
-        drawerslide = drawer.GetComponent<ConfigurableJoint>();
+        drawerslide = GetComponent<ConfigurableJoint>();
         drawerslide.xMotion = ConfigurableJointMotion.Limited;
         locked = false;
     }
