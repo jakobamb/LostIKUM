@@ -7,19 +7,19 @@ public class SetTimerText : MonoBehaviour
 {
     
     // The starttime in hh
-    public int startTime;
+    public room_manager_script timer;
+    private float time;
 
     public GameObject terminText;
     public GameObject uhrzeitText;
 
-    private float time;
     private Text termText;
     private Text uhrText;
 
     // Start is called before the first frame update
     void Start()
     {
-        time = startTime * 1440;
+        time = timer.time;
         termText = terminText.GetComponent<Text>();
         uhrText = uhrzeitText.GetComponent<Text>();
 
@@ -34,7 +34,7 @@ public class SetTimerText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time = time + Time.deltaTime;
+        time = timer.time;
         string hours = Mathf.Floor(time / 1440).ToString("00");
         string minutes = (Mathf.Floor(time / 60)%24).ToString("00");
         string seconds = Mathf.Floor(time%60).ToString("00");
@@ -42,3 +42,4 @@ public class SetTimerText : MonoBehaviour
         uhrText.text = timerString;
     }
 }
+
