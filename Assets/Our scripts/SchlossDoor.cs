@@ -34,6 +34,9 @@ public class SchlossDoor : MonoBehaviour
         if (locked)
         {
             playLockedSound.Invoke();
+        } else
+        {
+            playUnlockSound.Invoke();
         }
     }
     
@@ -56,7 +59,6 @@ public class SchlossDoor : MonoBehaviour
         
     }
     private void UnlockDoor(){
-        playUnlockSound.Invoke();
         hinge = GetComponent<HingeJoint>();
         JointLimits limits = hinge.limits;
         limits.max = 100;

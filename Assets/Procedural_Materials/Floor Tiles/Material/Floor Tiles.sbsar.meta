@@ -230,12 +230,7 @@ ScriptedImporter:
       normalCompressed: 0
       bGenerateOnLoad: 1
     material: {fileID: -8334566771261155569, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    generatedTextures:
-    - {fileID: 7944075791442784867, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 1096419187421903908, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 2064907966290581616, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -8899300737736342440, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 4840527884711104743, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
+    generatedTextures: []
   - graphLabel: Floor_Tiles_1
     prototypeName: Floor_Tiles
     graphDescIndex: 0
@@ -461,12 +456,7 @@ ScriptedImporter:
       normalCompressed: 0
       bGenerateOnLoad: 1
     material: {fileID: -898949332366681999, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    generatedTextures:
-    - {fileID: -5063812530012426232, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -827310376280638726, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -5861657041922877291, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -3942433671299655967, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -7653189767977522178, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
+    generatedTextures: []
   - graphLabel: Floor_Tiles_2
     prototypeName: Floor_Tiles
     graphDescIndex: 0
@@ -695,12 +685,7 @@ ScriptedImporter:
       normalCompressed: 0
       bGenerateOnLoad: 0
     material: {fileID: 7732977541172912508, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    generatedTextures:
-    - {fileID: 3942670652379042602, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 3848662778429997224, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 4086727903843044515, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -5849218538605385993, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -9027139142985214131, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
+    generatedTextures: []
   - graphLabel: Floor_Tiles_3
     prototypeName: Floor_Tiles
     graphDescIndex: 0
@@ -932,9 +917,4 @@ ScriptedImporter:
       normalCompressed: 0
       bGenerateOnLoad: 1
     material: {fileID: -4835702192731345255, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    generatedTextures:
-    - {fileID: 1995198707541318679, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -9153521216283900384, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: -2606887961287983164, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 731128576403316761, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
-    - {fileID: 5666565433122774928, guid: 3b7ee2b62258b56468ceadda11ee3665, type: 3}
+    generatedTextures: []
